@@ -1,0 +1,17 @@
+{
+  "name": "discordbot-v2",
+  "version": "2.0.0",
+  "description": "New Version of Weaboo Discord Bot, built from the ground up",
+  "main": "index.js",
+  "repository": "https://github.com/Weeaboo-Bot/discordbot-v2.git",
+  "author": "Sean Doran",
+  "license": "GPL-3.0",
+  "private": false,
+  "dependencies": {
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.4.1"
+  }
+}
