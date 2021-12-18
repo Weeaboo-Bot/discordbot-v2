@@ -43,12 +43,13 @@ module.exports = class Util {
 				arrayOfFiles = Util.getAllFiles(dirPath + '/' + file, arrayOfFiles);
 			}
 			else {
-				arrayOfFiles.push(path.join(__dirname, dirPath, '/', file));
+				arrayOfFiles.push(path.join('./', dirPath, file));
 			}
 		});
 
 		return arrayOfFiles;
 	}
+
 
 	static delay(ms) {
 		return new Promise((resolve) => setTimeout(resolve, ms));

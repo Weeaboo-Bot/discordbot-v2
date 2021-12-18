@@ -1,24 +1,7 @@
-const fs = require('fs');
-const path = require('path');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const { getAllFiles } = require('./utils/Utils');
 const { clientId, guildId, token } = require('./config.json');
-
-const getAllFiles = function(dirPath, arrayOfFiles) {
-	const files = fs.readdirSync(dirPath);
-	arrayOfFiles = arrayOfFiles || [];
-
-	files.forEach(function(file) {
-		if (fs.statSync(dirPath + '/' + file).isDirectory()) {
-			arrayOfFiles = getAllFiles(dirPath + '/' + file, arrayOfFiles);
-		}
-		else {
-			arrayOfFiles.push(path.join(__dirname, dirPath, '/', file));
-		}
-	});
-
-	return arrayOfFiles;
-};
 
 const commands = [];
 const commandFiles = getAllFiles('./commands', []);
