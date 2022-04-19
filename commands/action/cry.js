@@ -5,7 +5,6 @@ module.exports = {
 		.setName('cry')
 		.setDescription('UWAA~'),
 	async execute(interaction) {
-		const user = interaction.options.getUser('target');
-		if (user) return interaction.reply(`${user} cries :'(`);
+		return interaction.reply(`:'(`);
 	},
 };
