@@ -3,6 +3,11 @@
   "version": "2.0.0",
   "description": "New Version of Weaboo Discord Bot, built from the ground up",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .js,.jsx ."
+},
   "repository": "https://github.com/Weeaboo-Bot/discordbot-v2.git",
   "author": "Sean Doran",
   "license": "GPL-3.0",
@@ -11,6 +16,7 @@
     "@discordjs/builders": "^0.9.0",
     "@discordjs/rest": "^0.1.0-canary.0",
     "@discordjs/voice": "^0.7.5",
+    "@sentry/node": "^6.19.6",
     "ansi-colors": "^4.1.1",
     "canvas": "^2.8.0",
     "chalk": "^5.0.0",

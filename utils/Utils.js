@@ -34,23 +34,6 @@ const botInvRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(a
 
 module.exports = class Util {
 
-	static getAllFiles(dirPath, arrayOfFiles) {
-		const files = fs.readdirSync(dirPath);
-		arrayOfFiles = arrayOfFiles || [];
-
-		files.forEach(function(file) {
-			if (fs.statSync(dirPath + '/' + file).isDirectory()) {
-				arrayOfFiles = Util.getAllFiles(dirPath + '/' + file, arrayOfFiles);
-			}
-			else {
-				arrayOfFiles.push(path.join('./', dirPath, file));
-			}
-		});
-
-		return arrayOfFiles;
-	}
-
-
 	static delay(ms) {
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
