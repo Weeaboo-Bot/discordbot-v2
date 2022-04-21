@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'interactionCreate',
+	description: 'the interaction create event',
 	execute(interaction) {
-		console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`);
+		console.log(`Interaction created: ${interaction.id}`);
 	},
 };

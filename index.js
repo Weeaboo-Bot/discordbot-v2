@@ -1,40 +1,24 @@
+const { getAllFiles } = require('./utils/Utils');
+const fs = require('node:fs')
+const Logger = require('./utils/Logger');
 const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./config.json');
-const fs = require('fs');
-const path = require('path');
-
-
-function getAllFiles(dirPath, arrayOfFiles) {
-	const files = fs.readdirSync(dirPath);
-	arrayOfFiles = arrayOfFiles || [];
-
-	files.forEach(function(file) {
-		if (fs.statSync(dirPath + '/' + file).isDirectory()) {
-			arrayOfFiles = getAllFiles(dirPath + '/' + file, arrayOfFiles);
-		}
-		else {
-			arrayOfFiles.push(path.join(__dirname, dirPath, file));
-		}
-	});
-
-	return arrayOfFiles;
-}
-
-
+const { discord } = require('./config.json');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.commands = new Collection();
+const commandFiles = getAllFiles('commands', [], '.js');
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
-const commandFiles = getAllFiles('./commands', []);
-const eventFiles = getAllFiles('./events', []);
+Logger.info('Loading Weaboo Bot...');
 
 for (const file of commandFiles) {
-	const command = require(`${file}`);
+	const command = require(`./${file}`);
 	client.commands.set(command.data.name, command);
+	Logger.info(`Loaded command ${command.data.name}`);
 }
 
 for (const file of eventFiles) {
-	const event = require(`${file}`);
+	const event = require(`./events/${file}`);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
 	} else {
@@ -42,5 +26,4 @@ for (const file of eventFiles) {
 	}
 }
 
-
-client.login(token);
+client.login(discord.token);

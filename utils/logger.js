@@ -1,5 +1,6 @@
 const { createLogger, format, transports } = require('winston');
 const path = require('path');
+global.__basedir = __dirname;
 
 // Custom log formatting
 const logFormat = format.printf((info) => {
@@ -21,7 +22,7 @@ const logger = createLogger({
 	level: 'debug',
 	format: format.combine(
 		format.errors({ stack: true }),
-		format.label({ label: path.basename(process.mainModule.filename) }),
+		format.label({ label: path.basename(require.main.filename) }),
 		format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
 	),
 	transports: [
@@ -40,6 +41,13 @@ const logger = createLogger({
 		new transports.File({
 			filename: path.join(__basedir, 'logs/error.log'),
 			level: 'warn',
+			format: logFormat,
+			options: { flags: 'w' },
+		}),
+		// Logging only warns and errors to file
+		new transports.File({
+			filename: path.join(__basedir, 'logs/debug.log'),
+			level: 'debug',
 			format: logFormat,
 			options: { flags: 'w' },
 		}),

@@ -1,8 +1,7 @@
 const Discord = require('discord.js');
 
 
-// Weaboo Bot Log Handler
-// Call these functions from within Commands - Will log to the Webhook Log Channel
+// This will output messages to discord client.
 
 
 function dmMessage(dm) {
