@@ -3,6 +3,6 @@ module.exports = {
 	description: 'the ready event',
 	once: true,
 	execute(client) {
-		console.log(`Ready! Logged in as ${client.user.tag}`);
+		console.log(`Hello! Logged in as ${client.user.tag}`);
 	},
 };

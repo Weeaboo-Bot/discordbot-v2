@@ -361,6 +361,6 @@ module.exports = class Util {
 			}
 		});
 
-		return arrayOfFiles;
+		return arrayOfFiles.filter(file => file.endsWith(type));
 	}
 };

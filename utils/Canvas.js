@@ -200,16 +200,14 @@ module.exports = class CanvasUtil {
 					words[0] = temp.slice(0, -1);
 					if (split) {
 						words[1] = `${temp.slice(-1)}${words[1]}`;
-					}
-					else {
+					} else {
 						split = true;
 						words.splice(1, 0, temp.slice(-1));
 					}
 				}
 				if (ctx.measureText(`${line}${words[0]}`).width < maxWidth) {
 					line += `${words.shift()} `;
-				}
-				else {
+				} else {
 					lines.push(line.trim());
 					line = '';
 				}
@@ -230,8 +228,7 @@ module.exports = class CanvasUtil {
 			width = base.width * (height / base.height);
 			x = (data.width - width) / 2;
 			y = 0;
-		}
-		else if (baseRatio > dataRatio) {
+		} else if (baseRatio > dataRatio) {
 			width = data.width;
 			height = base.height * (width / base.width);
 			x = 0;
