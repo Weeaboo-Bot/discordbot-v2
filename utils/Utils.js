@@ -363,4 +363,61 @@ module.exports = class Util {
 
 		return arrayOfFiles.filter(file => file.endsWith(type));
 	}
+
+	/**
+	 * Determine if a number is prime
+	 * @param {*} number the number to check
+	 * @returns true if prime, false if not
+	 */
+	static isPrime(number) {
+		if (number < 2) return false;
+		for (let i = 2; i < number; i++) {
+			if (number % i === 0) return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Return the roman numeral for a number
+	 * @param {*} number the number to convert
+	 * @returns the roman numeral
+	 */
+	static isRomanNumeral(number) {
+		const roman = {
+			M: 1000,
+			CM: 900,
+			D: 500,
+			CD: 400,
+			C: 100,
+			XC: 90,
+			L: 50,
+			XL: 40,
+			X: 10,
+			IX: 9,
+			V: 5,
+			IV: 4,
+			I: 1,
+		};
+		let romanNum = '';
+		for (const [key, value] of Object.entries(roman)) {
+			while (number >= value) {
+				romanNum += key;
+				number -= value;
+			}
+		}
+		return romanNum;
+	}
+
+	/**
+	 * Convert number to exponents
+	 * @param {*} number the number to convert
+	 * @param {*} precision the precision to use
+	 * @returns the number as a string
+	 */
+	static toExponential(number, precision = 2) {
+		if (number === 0) return 0;
+		const exponent = Math.floor(Math.log10(number));
+		const mantissa = number / Math.pow(10, exponent);
+		return mantissa.toFixed(precision) + 'e' + exponent;
+	}
 };

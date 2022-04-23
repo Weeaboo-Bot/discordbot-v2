@@ -6,15 +6,18 @@ module.exports = {
 		.setName('tax')
 		.setDescription('Determines the total cost of a purchase after tax.')
 		.addIntegerOption(option =>
-			option.setName('price')
+			option
+				.setName('price')
 				.setDescription('The price of the item')
 				.setRequired(true))
 		.addIntegerOption(option =>
-			option.setName('tax')
+			option
+				.setName('tax')
 				.setDescription('The tax rate')
 				.setRequired(true))
 		.addIntegerOption(option =>
-			option.setName('tip')
+			option
+				.setName('tip')
 				.setDescription('The tip percentage')
 				.setRequired(false)),
 	async execute(interaction) {

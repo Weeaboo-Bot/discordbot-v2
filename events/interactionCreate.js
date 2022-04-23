@@ -1,4 +1,4 @@
-const { info, error } = require('../utils/ChalkConfig');
+const { error, success } = require('../utils/ChalkConfig');
 module.exports = {
 	name: 'interactionCreate',
 	description: 'the interactionCreate event',
@@ -11,7 +11,7 @@ module.exports = {
 		if (!command) return;
 
 		try {
-			info(`${interaction.user.tag} triggered [${interaction.commandName}] in #${interaction.channel.name}`);
+			success(`${interaction.user.tag} triggered [${interaction.commandName}] in #${interaction.channel.name}`);
 			await command.execute(interaction);
 		} catch (err) {
 			error(err);
