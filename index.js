@@ -1,13 +1,12 @@
 const { getAllFiles } = require('./utils/Utils');
 const { Client, Collection, Intents } = require('discord.js');
-const { discord } = require('./config.json');
+const discord = require('./config').discord;
 const { info } = require('./utils/ChalkConfig');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 client.commands = new Collection();
 client.events = new Collection();
 const commandFiles = getAllFiles('commands', [], '.js');
 const eventFiles = getAllFiles('events', [], '.js');
-
 
 for (const file of commandFiles) {
 	const command = require(`./${file}`);
@@ -27,4 +26,4 @@ for (const file of eventFiles) {
 }
 
 
-client.login(discord.token);
+client.login(discord.DISCORD_TOKEN);
