@@ -1,60 +1,29 @@
 const crypto = require('crypto');
-const { stripIdents } = require('common-tags');
-const { SUCCESS_EMOJI_ID } = require('../config');
 const fs = require('fs');
 const path = require('path');
-const yes = [
-	'yes',
-	'y',
-	'ye',
-	'yeah',
-	'yup',
-	'yea',
-	'ya',
-	'hai',
-	'si',
-	'sí',
-	'oui',
-	'はい',
-	'correct',
-];
-const no = [
-	'no',
-	'n',
-	'nah',
-	'nope',
-	'nop',
-	'iie',
-	'いいえ',
-	'non',
-	'fuck off',
-];
 const inviteRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(\.gg|(app)?\.com\/invite|\.me)\/([^ ]+)\/?/gi;
 const botInvRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(api\/)?oauth2\/authorize\?([^ ]+)\/?/gi;
 
+
+/**
+ * Class that hold common util methods.
+ */
 module.exports = class Util {
 
-	static getAllFiles(dirPath, arrayOfFiles) {
-		const files = fs.readdirSync(dirPath);
-		arrayOfFiles = arrayOfFiles || [];
-
-		files.forEach(function(file) {
-			if (fs.statSync(dirPath + '/' + file).isDirectory()) {
-				arrayOfFiles = Util.getAllFiles(dirPath + '/' + file, arrayOfFiles);
-			}
-			else {
-				arrayOfFiles.push(path.join('./', dirPath, file));
-			}
-		});
-
-		return arrayOfFiles;
-	}
-
-
+	/**
+	 * Delay a Promise
+	 * @param {*} ms the time in milliseconds
+	 * @returns a delayed Promise
+	 */
 	static delay(ms) {
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
 
+	/**
+	 * Shuffle an array
+	 * @param {*} array the array to shuffle
+	 * @returns the shuffled array
+	 */
 	static shuffle(array) {
 		const arr = array.slice(0);
 		for (let i = arr.length - 1; i >= 0; i--) {
@@ -66,16 +35,31 @@ module.exports = class Util {
 		return arr;
 	}
 
+	/**
+	 * Roll a dice
+	 * @returns a random number between 1 and 6
+	 */
 	static rollDice() {
 		return Math.floor(Math.random() * 6) + 1;
 	}
 
+	/**
+	 * Convert to title case
+	 * @param {*} str the string to convert
+	 * @returns the converted string
+	 */
 	static toTitleCase(str) {
 		return str.replace(/\w\S*/g, function(txt) {
 			return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
 		});
 	}
 
+	/**
+	 * Create a list
+	 * @param {*} arr the array to create the list from
+	 * @param {*} conj the conjunction to use between the items
+	 * @returns the list
+	 */
 	static list(arr, conj = 'and') {
 		const len = arr.length;
 		if (len === 0) return '';
@@ -85,14 +69,32 @@ module.exports = class Util {
 		}${arr.slice(-1)}`;
 	}
 
+	/**
+	 * Shorten a string to a certain length
+	 * @param {*} text the string to shorten
+	 * @param {*} maxLen the maximum length of the string
+	 * @returns the shortened string
+	 */
 	static shorten(text, maxLen = 2000) {
 		return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text;
 	}
 
+	/**
+	 * Return a random number between min and max
+	 * @param {*} min the minimum number
+	 * @param {*} max the maximum number
+	 * @returns the random number
+	 */
 	static randomRange(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
+	/**
+	 * Trim an array to a certain length
+	 * @param {*} arr the array to trim
+	 * @param {*} maxLen the maximum length of the array
+	 * @returns the trimmed array
+	 */
 	static trimArray(arr, maxLen = 10) {
 		if (arr.length > maxLen) {
 			const len = arr.length - maxLen;
@@ -102,6 +104,11 @@ module.exports = class Util {
 		return arr;
 	}
 
+	/**
+	 * Remove duplicate elements from an array
+	 * @param {*} arr the array to remove duplicates from
+	 * @returns the array without duplicates
+	 */
 	static removeDuplicates(arr) {
 		if (arr.length === 0 || arr.length === 1) return arr;
 		const newArr = [];
@@ -112,6 +119,12 @@ module.exports = class Util {
 		return newArr;
 	}
 
+	/**
+	 * Sort by name
+	 * @param {*} arr the array to sort
+	 * @param {*} prop the property to sort by
+	 * @returns the sorted array
+	 */
 	static sortByName(arr, prop) {
 		return arr.sort((a, b) => {
 			if (prop) {
@@ -121,6 +134,12 @@ module.exports = class Util {
 		});
 	}
 
+	/**
+	 * Return the first upper case character of a string
+	 * @param {*} text the string to get the first upper case character from
+	 * @param {*} split the character to split the string on
+	 * @returns the first upper case character
+	 */
 	static firstUpperCase(text, split = ' ') {
 		return text
 			.split(split)
@@ -128,6 +147,12 @@ module.exports = class Util {
 			.join(' ');
 	}
 
+	/**
+	 * Format a number to a certain number of decimal places
+	 * @param {*} number the number to format
+	 * @param {*} minimumFractionDigits the minimum number of fraction digits
+	 * @returns the formatted number
+	 */
 	static formatNumber(number, minimumFractionDigits = 0) {
 		return Number.parseFloat(number).toLocaleString(undefined, {
 			minimumFractionDigits,
@@ -135,6 +160,11 @@ module.exports = class Util {
 		});
 	}
 
+	/**
+	 * Format a number to a certain number of decimal places
+	 * @param {*} number the number to format
+	 * @returns the formatted number
+	 */
 	static formatNumberK(number) {
 		return number > 999
 			? `${(number / 1000).toLocaleString(undefined, {
@@ -143,6 +173,12 @@ module.exports = class Util {
 			: number;
 	}
 
+	/**
+	 * Return a base64 encoded string
+	 * @param {*} text the string to encode
+	 * @param {*} mode the encoding mode
+	 * @returns the base64 encoded string
+	 */
 	static base64(text, mode = 'encode') {
 		if (mode === 'encode') return Buffer.from(text).toString('base64');
 		if (mode === 'decode') {
@@ -151,10 +187,21 @@ module.exports = class Util {
 		throw new TypeError(`${mode} is not a supported base64 mode.`);
 	}
 
+	/**
+	 * Return a hash of a string
+	 * @param {*} text the string to hash
+	 * @param {*} algorithm the hashing algorithm
+	 * @returns the hash
+	 */
 	static hash(text, algorithm) {
 		return crypto.createHash(algorithm).update(text).digest('hex');
 	}
 
+	/**
+	 * Convert a stream to a array buffer
+	 * @param {*} stream the stream to convert
+	 * @returns the array buffer
+	 */
 	static streamToArray(stream) {
 		if (!stream.readable) return Promise.resolve([]);
 		return new Promise((resolve, reject) => {
@@ -184,6 +231,12 @@ module.exports = class Util {
 		});
 	}
 
+	/**
+	 * Return a percentage of a color
+	 * @param {*} pct the percentage
+	 * @param {*} percentColors the colors to use
+	 * @returns the color
+	 */
 	static percentColor(pct, percentColors) {
 		let i = 1;
 		for (i; i < percentColors.length - 1; i++) {
@@ -211,6 +264,11 @@ module.exports = class Util {
 		return `#${color.r}${color.g}${color.b}`;
 	}
 
+	/**
+	 * Return todays date
+	 * @param {*} timeZone the time zone to use
+	 * @returns the date
+	 */
 	static today(timeZone) {
 		const now = new Date();
 		now.setHours(0);
@@ -221,18 +279,36 @@ module.exports = class Util {
 		return now;
 	}
 
+	/**
+	 * Return tomorrow's date
+	 * @param {*} timeZone the time zone to use
+	 * @returns the date
+	 */
 	static tomorrow(timeZone) {
 		const today = Util.today(timeZone);
 		today.setDate(today.getDate() + 1);
 		return today;
 	}
 
+	/**
+	 * Return a embed url
+	 * @param {*} title the title of the embed
+	 * @param {*} url the url of the embed
+	 * @param {*} display the display of the embed
+	 * @returns the url
+	 */
 	static embedURL(title, url, display) {
 		return `[${title}](${url.replace(/\)/g, '%27')}${
 			display ? ` "${display}"` : ''
 		})`;
 	}
 
+	/**
+	 * Strip invites from a string
+	 * @param {*} str the string to strip
+	 * @param {*} param1 the options
+	 * @returns the stripped string
+	 */
 	static stripInvites(
 		str,
 		{ guild = true, bot = true, text = '[redacted invite]' } = {},
@@ -242,116 +318,12 @@ module.exports = class Util {
 		return str;
 	}
 
-	static async verify(
-		channel,
-		user,
-		{ time = 30000, extraYes = [], extraNo = [] } = {},
-	) {
-		const filter = (res) => {
-			const value = res.content.toLowerCase();
-			return (
-				(user ? res.author.id === user.id : true) &&
-                (yes.includes(value) ||
-                    no.includes(value) ||
-                    extraYes.includes(value) ||
-                    extraNo.includes(value))
-			);
-		};
-		const verify = await channel.awaitMessages(filter, {
-			max: 1,
-			time,
-		});
-		if (!verify.size) return 0;
-		const choice = verify.first().content.toLowerCase();
-		if (yes.includes(choice) || extraYes.includes(choice)) return true;
-		if (no.includes(choice) || extraNo.includes(choice)) return false;
-		return false;
-	}
-
-	static async reactIfAble(msg, user, emoji, fallbackEmoji) {
-		const dm = !msg.guild;
-		if (
-			fallbackEmoji &&
-            !dm &&
-            !msg.channel.permissionsFor(user).has('USE_EXTERNAL_EMOJIS')
-		) {
-			emoji = fallbackEmoji;
-		}
-		if (
-			dm ||
-            msg.channel
-            	.permissionsFor(user)
-            	.has(['ADD_REACTIONS', 'READ_MESSAGE_HISTORY'])
-		) {
-			try {
-				await msg.react(emoji);
-			}
-			catch {
-				return null;
-			}
-		}
-		return null;
-	}
-
-	static async pickWhenMany(
-		msg,
-		arr,
-		defaultValue,
-		arrListFunction,
-		{ time = 30000 } = {},
-	) {
-		const resList = arr.map(arrListFunction);
-		await msg.reply(stripIdents`
-		__**Found ${arr.length} results, which would you like to view?**__
-		${resList.join('\n')}
-		`);
-		const filter = (res) => {
-			if (res.author.id !== msg.author.id) {
-				return false;
-			}
-			const num = Number.parseInt(res.content, 10);
-			if (!num) {
-				return false;
-			}
-			return num > 0 && num <= arr.length;
-		};
-		const messages = await msg.channel.awaitMessages(filter, {
-			max: 1,
-			time,
-		});
-		if (!messages.size) {
-			return defaultValue;
-		}
-		return arr[Number.parseInt(messages.first().content, 10) - 1];
-	}
-
-	static async awaitPlayers(msg, max, min = 1) {
-		if (max === 1) return [msg.author.id];
-		const addS = min - 1 === 1 ? '' : 's';
-		await msg.say(
-			`You will need at least ${min - 1} more player${addS} (at max ${
-				max - 1
-			}). To join, type \`join game\`.`,
-		);
-		const joined = [];
-		joined.push(msg.author.id);
-		const filter = (res) => {
-			if (res.author.bot) return false;
-			if (joined.includes(res.author.id)) return false;
-			if (res.content.toLowerCase() !== 'join game') return false;
-			joined.push(res.author.id);
-			res.react(SUCCESS_EMOJI_ID || '✅').catch(() => null);
-			return true;
-		};
-		const verify = await msg.channel.awaitMessages(filter, {
-			max: max - 1,
-			time: 60000,
-		});
-		verify.set(msg.id, msg);
-		if (verify.size < min) return false;
-		return verify.map((player) => player.author.id);
-	}
-
+	/**
+	 * Clean a AniList object
+	 * @param {*} html the html to clean
+	 * @param {*} removeLineBreaks remove line breaks
+	 * @returns the cleaned html
+	 */
 	static cleanAnilistHTML(html, removeLineBreaks = true) {
 		let clean = html;
 		if (removeLineBreaks) clean = clean.replace(/\r|\n|\f/g, '');
@@ -367,5 +339,85 @@ module.exports = class Util {
 		const spoilers = (clean.match(/\|\|/g) || []).length;
 		if (spoilers !== 0 && spoilers && spoilers % 2) clean += '||';
 		return clean;
+	}
+
+	/**
+	 * Return all the files in a directory
+	 * @param {*} dirPath the directory to search
+	 * @param {*} arrayOfFiles the array to add the files to
+	 * @param {*} fileType the file type to search for
+	 * @returns an array of files
+	 */
+	static getAllFiles(dirPath, arrayOfFiles, fileType) {
+		const type = fileType || '.js';
+		const files = fs.readdirSync(dirPath);
+		arrayOfFiles = arrayOfFiles || [];
+
+		files.forEach(function(file) {
+			if (fs.statSync(dirPath + '/' + file).isDirectory()) {
+				arrayOfFiles = Util.getAllFiles(dirPath + '/' + file, arrayOfFiles);
+			} else {
+				arrayOfFiles.push(path.join('', dirPath, file));
+			}
+		});
+
+		return arrayOfFiles.filter(file => file.endsWith(type));
+	}
+
+	/**
+	 * Determine if a number is prime
+	 * @param {*} number the number to check
+	 * @returns true if prime, false if not
+	 */
+	static isPrime(number) {
+		if (number < 2) return false;
+		for (let i = 2; i < number; i++) {
+			if (number % i === 0) return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Return the roman numeral for a number
+	 * @param {*} number the number to convert
+	 * @returns the roman numeral
+	 */
+	static isRomanNumeral(number) {
+		const roman = {
+			M: 1000,
+			CM: 900,
+			D: 500,
+			CD: 400,
+			C: 100,
+			XC: 90,
+			L: 50,
+			XL: 40,
+			X: 10,
+			IX: 9,
+			V: 5,
+			IV: 4,
+			I: 1,
+		};
+		let romanNum = '';
+		for (const [key, value] of Object.entries(roman)) {
+			while (number >= value) {
+				romanNum += key;
+				number -= value;
+			}
+		}
+		return romanNum;
+	}
+
+	/**
+	 * Convert number to exponents
+	 * @param {*} number the number to convert
+	 * @param {*} precision the precision to use
+	 * @returns the number as a string
+	 */
+	static toExponential(number, precision = 2) {
+		if (number === 0) return 0;
+		const exponent = Math.floor(Math.log10(number));
+		const mantissa = number / Math.pow(10, exponent);
+		return mantissa.toFixed(precision) + 'e' + exponent;
 	}
 };

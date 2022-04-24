@@ -1,30 +1,20 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { token, clientId, guildId } = require('./config.json');
 const { getAllFiles } = require('./utils/Utils');
+const discord = require('./config').discord;
+const { info, error } = require('./utils/ChalkConfig');
 
 const commands = [];
-const commandFiles = getAllFiles('./events', []);
-
+const commandFiles = getAllFiles('./commands', [], '.js');
 
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
+	const command = require(`./${file}`);
 	commands.push(command.data.toJSON());
+	info(`Register guild command ${command.data.name}`);
 }
 
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST({ version: '9' }).setToken(discord.DISCORD_TOKEN);
 
-(async () => {
-	try {
-		console.log('Started refreshing application (/) commands.');
-
-		await rest.put(
-			Routes.applicationGuildCommands(clientId, guildId),
-			{ body: commands },
-		);
-
-		console.log('Successfully reloaded application (/) commands.');
-	} catch (error) {
-		console.error(error);
-	}
-})();
+rest.put(Routes.applicationGuildCommands(discord.DISCORD_CLIENT_ID, discord.DISCORD_GUILD_ID), { body: commands })
+	.then(() => console.log('Successfully registered guild commands.'))
+	.catch(error);
