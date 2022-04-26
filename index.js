@@ -2,7 +2,16 @@ const { getAllFiles } = require('./utils/Utils');
 const { Client, Collection, Intents } = require('discord.js');
 const discord = require('./config').discord;
 const { commandLog, eventLog } = require('./utils/ChalkConfig');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+// Load Intents
+const myIntents = new Intents();
+myIntents.add(Intents.FLAGS.GUILDS,
+	Intents.FLAGS.GUILD_VOICE_STATES,
+	Intents.FLAGS.GUILD_MESSAGES);
+
+const client = new Client({ intents: myIntents,
+	presence: { activity: { name: 'Developing Cool Features', type: 'PLAYING' }, status: 'online' } });
+
 client.commands = new Collection();
 client.events = new Collection();
 const commandFiles = getAllFiles('commands', [], '.js');
@@ -26,10 +35,6 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
-
-// Setup the bot presence
-client.options.presence = { activity: { name: 'Developing Cool Features', type: 'PLAYING' }, status: 'online' };
-
 
 // Login the bot
 client.login(discord.DISCORD_TOKEN);

@@ -8,6 +8,7 @@ exports.discord = {
 	DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
 	DISCORD_PUBLIC_KEY: process.env.DISCORD_PUBLIC_KEY,
 	DISCORD_GUILD_ID: process.env.DISCORD_GUILD_ID,
+	MUSIC_CHANNEL_ID: process.env.MUSIC_CHANNEL_ID,
 };
 
 exports.api = {
