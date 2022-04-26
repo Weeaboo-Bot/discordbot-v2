@@ -12,6 +12,9 @@ exports.discord = {
 
 exports.api = {
 	ALPHA_KEY: process.env.ALPHA_VANTAGE,
+	BITLY_KEY: process.env.BITLY_KEY,
+	BITLY_CLIENT_ID: process.env.BITLY_CLIENT_ID,
+	BITLY_CLIENT_SECRET: process.env.BITLY_CLIENT_SECRET,
 	GENIUS_CLIENT_ID: process.env.GENIUS_CLIENT_ID,
 	GENIUS_CLIENT_SECRET: process.env.GENIUS_CLIENT_SECRET,
 	GENIUS_KEY: process.env.GENIUS_ACCESS_TOKEN,

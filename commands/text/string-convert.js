@@ -21,153 +21,148 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('string-convert')
 		.setDescription('Encodes or decodes a string to or from emoji.')
-		.addSubcommandGroup({
-			name: 'encode',
-			description: 'Encodes a string.',
-			subcommands: [
-				{
-					name: 'emoji',
-					description: 'Encodes a string to emoji.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (interaction) => {
-						const input = interaction.options.getString('input');
-						const encoded = letterTrans(input, emojiDict);
-						await interaction.reply(encoded);
-					},
-				},
-				{
-					name: 'dvorak',
-					description: 'Encodes a string to dvorak.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = letterTrans(string, dvorakDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'cursive',
-					description: 'Encodes a string to cursive.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = letterTrans(string, cursiveDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'brony',
-					description: 'Encodes a string to brony speak.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = wordTrans(string, bronyDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'braille',
-					description: 'Encodes a string to braille.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = letterTrans(string, brailleDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'fancy',
-					description: 'Encodes a string to fancy.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = letterTrans(string, fancyDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'morse',
-					description: 'Encodes a string to morse.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = wordTrans(string, morseDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'pirate',
-					description: 'Encodes a string to pirate speak.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = wordTrans(string, pirateDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'superscript',
-					description: 'Encodes a string to superscript.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = letterTrans(string, superScriptDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'tebahpla',
-					description: 'Encodes a string to tebahpla.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = letterTrans(string, tebahplaDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'temmie',
-					description: 'Encodes a string to temmie speak.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = wordTrans(string, temmieDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'zalgo',
-					description: 'Encodes a string to zalgo.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = letterTrans(string, zalgoDict);
-						await message.channel.send(encoded);
-					},
-				},
-				{
-					name: 'upsidedown',
-					description: 'Encodes a string to upside down.',
-					usage: '<string>',
-					example: 'hello',
-					execute: async (message, args) => {
-						const string = args.join(' ');
-						const encoded = letterTrans(string, upsideDownDict);
-						await message.channel.send(encoded);
-					},
-				},
-			],
-		}),
+		.addSubcommandGroup(subcommandGroup =>
+			subcommandGroup
+				.setName('encode')
+				.setDescription('Encodes a string.')
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('emoji')
+						.setDescription('Encodes a string to emoji.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('dvorak')
+						.setDescription('Encodes a string to dvorak.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('cursive')
+						.setDescription('Encodes a string to cursive.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('brony')
+						.setDescription('Encodes a string to brony speak.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('braille')
+						.setDescription('Encodes a string to braille.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('fancy')
+						.setDescription('Encodes a string to fancy.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('morse')
+						.setDescription('Encodes a string to morse.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('pirate')
+						.setDescription('Encodes a string to pirate speak.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('superscript')
+						.setDescription('Encodes a string to superscript.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('tebahpla')
+						.setDescription('Encodes a string to tebahpla.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('temmie')
+						.setDescription('Encodes a string to temmie speak.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('upside-down')
+						.setDescription('Encodes a string to upside-down.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true)))
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('zalgo')
+						.setDescription('Encodes a string to zalgo.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to encode.')
+								.setRequired(true))),
+		)
+		.addSubcommandGroup(subcommandGroup =>
+			subcommandGroup
+				.setName('decode')
+				.setDescription('Decodes a string.')
+				.addSubcommand(subcommand =>
+					subcommand
+						.setName('decode')
+						.setDescription('Decodes a string.')
+						.addStringOption(option =>
+							option
+								.setName('input')
+								.setDescription('The text to decode.')
+								.setRequired(true))),
+		),
+	async execute(interaction) {
+		const input = interaction.getStringOption('input');
+		const output = await this.decode(input);
+		interaction.setOutput(output);
+	},
+	async decode(input) {
+		return input;
+	},
 };
