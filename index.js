@@ -3,8 +3,12 @@ const { Client, Collection, Intents } = require('discord.js');
 const discord = require('./config').discord;
 const { commandLog, eventLog } = require('./utils/ChalkConfig');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+
+// Create collections for commands and events
 client.commands = new Collection();
 client.events = new Collection();
+
 const commandFiles = getAllFiles('commands', [], '.js');
 const eventFiles = getAllFiles('events', [], '.js');
 
