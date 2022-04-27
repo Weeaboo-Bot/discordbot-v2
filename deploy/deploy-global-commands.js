@@ -1,14 +1,14 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { getAllFiles } = require('./utils/Utils');
-const { discord } = require('./config');
-const { info, error } = require('./utils/ChalkConfig');
+const { getAllFiles } = require('../utils/Utils');
+const { discord } = require('../config');
+const { info, error } = require('../utils/ChalkConfig');
 
 const commands = [];
-const commandFiles = getAllFiles('../commands', [], '.js');
+const commandFiles = getAllFiles('./commands', [], '.js');
 
 for (const file of commandFiles) {
-	const command = require(`./${file}`);
+	const command = require(`../${file}`);
 	commands.push(command.data.toJSON());
 	info(`Register global command ${command.data.name}`);
 }

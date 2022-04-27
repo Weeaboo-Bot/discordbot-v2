@@ -8,7 +8,9 @@
     "dev": "nodemon index.js",
     "prepack": "npm run build",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix --ext .js,.jsx ."
+    "lint:fix": "eslint --fix --ext .js,.jsx .",
+    "deploy:guild": "node deploy/deploy-guild-commands.js",
+    "deploy:global": "node deploy/deploy-global-commands.js"
   },
   "type": "commonjs",
   "repository": "https://github.com/Weeaboo-Bot/discordbot-v2.git",

@@ -11,7 +11,7 @@ module.exports = {
 		if (!command) return;
 
 		try {
-			commandExecute(`${interaction.user.tag} triggered [${interaction.commandName}] in #${interaction.channel.name}`);
+			commandExecute(`${interaction.user.tag} triggered [${interaction.commandName}] [${interaction.options._subcommand != null ? interaction.options._subcommand : ''}] in #${interaction.channel.name}`);
 			await command.execute(interaction);
 		} catch (err) {
 			error(err);
