@@ -1,10 +1,12 @@
 const { getAllFiles } = require('./utils/Utils');
 const { Client, Collection, Intents } = require('discord.js');
-const discord = require('./config').discord;
 const { commandLog, eventLog } = require('./utils/ChalkConfig');
+const { initializeApp } = require('firebase/app');
+const { getAnalytics } = require('firebase/analytics');
+const { discord, firebase } = require('./config');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-
-
+const firebaseApp = initializeApp(firebase);
+const firebaseAnalytics = getAnalytics(firebaseApp);
 // Create collections for commands and events
 client.commands = new Collection();
 client.events = new Collection();
