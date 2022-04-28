@@ -8,6 +8,8 @@ exports.discord = {
 	DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
 	DISCORD_PUBLIC_KEY: process.env.DISCORD_PUBLIC_KEY,
 	DISCORD_GUILD_ID: process.env.DISCORD_GUILD_ID,
+	BOT_IMG_LINK: process.env.BOT_IMG_LINK,
+	BOT_IMG_TOKEN: process.env.BOT_IMG_TOKEN,
 };
 
 exports.api = {

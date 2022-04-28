@@ -2,7 +2,6 @@ const { error, commandExecute } = require('../utils/ChalkConfig');
 module.exports = {
 	name: 'interactionCreate',
 	description: 'the interactionCreate event',
-	once: true,
 	async execute(interaction) {
 		if (!interaction.isCommand()) return;
 
