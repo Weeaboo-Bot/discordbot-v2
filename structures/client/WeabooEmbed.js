@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { BOT_IMG_LINK, BOT_IMG_TOKEN } = require('../config').discord;
+const { BOT_IMG_LINK, BOT_IMG_TOKEN } = require('../../config').discord;
 
 // Custom Weaboo Embed
 module.exports = class WeabooEmbed extends MessageEmbed {

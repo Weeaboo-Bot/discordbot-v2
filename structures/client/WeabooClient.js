@@ -21,7 +21,7 @@ module.exports = class WeabooClient extends Client {
 	loadCommands() {
 		const commandFiles = getAllFiles('./commands', [], '.js');
 		for (const file of commandFiles) {
-			const command = require(`../${file}`);
+			const command = require(`../../${file}`);
 			this.commands.set(command.data.name, command);
 			commandLog(`Loaded command ${command.data.name}`);
 		}
@@ -33,7 +33,7 @@ module.exports = class WeabooClient extends Client {
 	loadEvents() {
 		const eventFiles = getAllFiles('./events', [], '.js');
 		for (const file of eventFiles) {
-			const event = require(`../${file}`);
+			const event = require(`../../${file}`);
 			this.events.set(event.name, event);
 			eventLog(`Loaded event ${event.name}`);
 			if (event.once) {

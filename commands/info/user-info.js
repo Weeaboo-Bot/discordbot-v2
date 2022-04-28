@@ -93,7 +93,7 @@ module.exports = {
 				: [];
 			const userEmbed = new WeabooEmbed()
 				.setThumbnail(user.displayAvatarURL({ format: 'png', dynamic: true }))
-				.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ format: 'png', dynamic: true })})
+				.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ format: 'png', dynamic: true }) })
 				.addField(
 					'❯ Discord Join Date',
 					user.createdAt.toLocaleString(),

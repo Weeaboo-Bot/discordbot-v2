@@ -1,5 +1,5 @@
 const { discord } = require('./config');
-const WeabooClient = require('./structures/client/WeabooClientent');
+const WeabooClient = require('./structures/client/WeabooClient');
 
 // Create the Weaboo Client
 const client = new WeabooClient();

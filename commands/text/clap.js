@@ -11,7 +11,6 @@ module.exports = {
 				.setDescription('The string to encode or decode.')),
 	async execute(interaction) {
 		const input = interaction.options.getString('input');
-		const output = input.replaceAll(' ', ' 👏 ');
 		await interaction.reply(input.replaceAll(' ', ' 👏 '));
 	},
 };
