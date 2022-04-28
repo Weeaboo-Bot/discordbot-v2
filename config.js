@@ -1,6 +1,6 @@
 // config.js
 const dotenv = require('dotenv');
-dotenv.config({ debug: true });
+dotenv.config();
 
 exports.discord = {
 	DISCORD_TOKEN: process.env.DISCORD_TOKEN,
