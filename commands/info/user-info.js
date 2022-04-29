@@ -80,12 +80,10 @@ module.exports = {
 						.join(' | '),
 				)
 				.setImage(user.displayAvatarURL({ format: format, size: 2048 }));
-			await interaction.reply({ embeds: [avatarEmbed] });
-			break;
+			return interaction.reply({ embeds: [avatarEmbed] });
 		}
 		case 'id': {
-			await interaction.reply(`${user.tag}'s ID is ${user.id}`);
-			break;
+			return interaction.reply(`${user.tag}'s ID is ${user.id}`);
 		}
 		case 'info': {
 			const userFlags = user.flags
@@ -139,8 +137,7 @@ module.exports = {
 					userEmbed.setFooter({ text : 'Failed to resolve member, showing basic user info instead.' });
 				}
 			}
-			await interaction.reply({ embeds: [userEmbed] });
-			break;
+			return interaction.reply({ embeds: [userEmbed] });
 		}
 		default:
 			error(`Unknown subcommand ${interaction.options._subcommand}`);

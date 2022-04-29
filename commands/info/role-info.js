@@ -57,16 +57,13 @@ module.exports = {
 
 
 			Object.keys(perms).forEach((key) => {
-				table.addRow([key, perms[key] ? 'Yes' : 'No'], { override: 0 });
+				roleInfoEmbed.addField(key, perms[key] ? 'Yes' : 'No', true);
 			});
-			roleInfoEmbed.addFields(table.field());
-			await interaction.reply({ embeds: [roleInfoEmbed] });
-			break;
+			return interaction.reply({ embeds: [roleInfoEmbed] });
 		}
 		case 'in-role': {
-			const members = role.fetch();
-
-			const allMembers = members
+			
+			const allMembers = role.members
 				.map((m) => {
 					return `${m.user.tag}${m.user.bot ? ' [BOT]' : ''}`;
 				})
@@ -87,11 +84,10 @@ module.exports = {
 				.setColor(role.hexColor)
 				.setDescription(`\`\`\`css\n${allMembers}\`\`\``)
 				.setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() });
-			await interaction.reply({ content:  `All members with the **${role.name}** role!`, embeds: [roleMembersEmbed] });
-			break;
+			return interaction.reply({ content:  `All members with the **${role.name}** role!`, embeds: [roleMembersEmbed] });
 		}
 		default:
-			return interaction.reply('Invalid subcommand!');
+			break;
 		}
 
 	},
