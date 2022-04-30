@@ -6,7 +6,7 @@ const botInvRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(a
 
 
 /**
- * Class that hold common util methods.
+ * Class representing Utils.
  */
 module.exports = class Util {
 
@@ -419,5 +419,28 @@ module.exports = class Util {
 		const exponent = Math.floor(Math.log10(number));
 		const mantissa = number / Math.pow(10, exponent);
 		return mantissa.toFixed(precision) + 'e' + exponent;
+	}
+
+	/**
+	 * Truncate a string
+	 * @param {*} string the string to truncate
+	 * @param {*} max the max length
+	 * @param {*} append the string to append
+	 * @returns the truncated string
+	 */
+	static truncate(string, max, append = '') {
+		if (!string || !max || 1 + append.length >= max) {
+			return '';
+		}
+
+		if (string.length <= max && !append) {
+			return string;
+		}
+
+		string = string.slice(0, max - 1 - append.length);
+		if (/\s/.test(string.charAt(string.length - 1))) {
+			string = string.replace(/\s+?$/, '');
+		}
+		return string + '\u2026' + append;
 	}
 };

@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
+const WeabooEmbed = require('../../structures/client/WeabooEmbed');
 const { error } = require('../../utils/ChalkConfig');
 const NEWS_KEY = require('../../config').api.NEWS_KEY;
 
@@ -28,15 +28,13 @@ module.exports = {
 		}
 	},
 	async processArticle(article) {
-		const embed = new MessageEmbed()
-			.setColor('#FF4F00')
+		const embed = new WeabooEmbed()
 			.setTitle(article.title)
 			.setURL(article.url)
 			.setAuthor(article.author)
 			.setDescription(article.description)
 			.setThumbnail(article.urlToImage)
-			.setTimestamp(article.publishedAt)
-			.setFooter('powered by NewsAPI.org');
+			.setTimestamp(article.publishedAt);
 		return embed;
 	},
 	async processArray(array, interaction) {
