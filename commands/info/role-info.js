@@ -40,29 +40,33 @@ module.exports = {
 
 		switch (interaction.options._subcommand) {
 		case 'info': {
+			const titleText = bold('Role Info');
+			const rolePos = role.position;
+			const roleCreated = role.createdAt.toLocaleString();
 			const roleInfoEmbed = new WeabooEmbed()
 				.setTitle(`Role Information for ${role.name}`)
-				.addField(bold('Role Info'), '----')
+				.addField('Role Info', '----')
 				.addFields(
 					{ name: '❯ Role ID', value: role.id, inline: true },
 					{ name: '❯ Role Name', value: role.name, inline: true },
 					{ name: '❯ Role Color', value: role.hexColor, inline: true },
-					{ name: '❯ Role Creation Date', value: role.createdAt.toLocaleString(), inline: true },
-					{ name: '❯ Role Position', value: role.position, inline: true },
-					{ name: '❯ Role Hoisted', value: role.hoist ? 'Yes' : 'No', inline: true },
+					{ name: '❯ Role Creation Date', value: roleCreated, inline: true },
+					{ name: '❯ Role Position', value: role.position.toString(), inline: true },
+					{ name: '❯ Role Hoisted', value: role.hoisted ? 'Yes' : 'No', inline: true },
 					{ name: '❯ Role Mentionable', value: role.mentionable ? 'Yes' : 'No', inline: true },
-					{ name: '----', value: '----', inline: true },
 					{ name: '❯ Role Permissions', value: '----', inline: true },
 				);
 
 
 			Object.keys(perms).forEach((key) => {
-				roleInfoEmbed.addField(key, perms[key] ? 'Yes' : 'No', true);
+				table.addRow([key, perms[key] ? 'Yes' : 'No']);
 			});
+			const tableText = table.field();
+			roleInfoEmbed.add(tableText);
 			return interaction.reply({ embeds: [roleInfoEmbed] });
 		}
 		case 'in-role': {
-			
+
 			const allMembers = role.members
 				.map((m) => {
 					return `${m.user.tag}${m.user.bot ? ' [BOT]' : ''}`;
