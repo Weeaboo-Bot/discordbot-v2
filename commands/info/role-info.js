@@ -40,8 +40,6 @@ module.exports = {
 
 		switch (interaction.options._subcommand) {
 		case 'info': {
-			const titleText = bold('Role Info');
-			const rolePos = role.position;
 			const roleCreated = role.createdAt.toLocaleString();
 			const roleInfoEmbed = new WeabooEmbed()
 				.setTitle(`Role Information for ${role.name}`)
@@ -59,10 +57,8 @@ module.exports = {
 
 
 			Object.keys(perms).forEach((key) => {
-				table.addRow([key, perms[key] ? 'Yes' : 'No']);
+				roleInfoEmbed.addField(`❯ ${key}`, perms[key] ? 'Yes' : 'No', true);
 			});
-			const tableText = table.field();
-			roleInfoEmbed.add(tableText);
 			return interaction.reply({ embeds: [roleInfoEmbed] });
 		}
 		case 'in-role': {
