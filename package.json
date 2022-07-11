@@ -22,7 +22,6 @@
     "@discordjs/rest": "^0.3.0",
     "@discordjs/voice": "^0.8.0",
     "ansi-colors": "^4.1.1",
-    "canvas": "^2.9.1",
     "chalk": "^4.1.2",
     "cheerio": "^1.0.0-rc.10",
     "common-tags": "^1.8.2",
