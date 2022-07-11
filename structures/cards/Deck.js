@@ -3,6 +3,7 @@ const suits = ['spades', 'hearts', 'diamonds', 'clubs'];
 const faces = ['Jack', 'Queen', 'King'];
 const { shuffle } = require('../../utils/Utils');
 
+// Deck class
 module.exports = class Deck {
 	constructor(options = {}) {
 		this.deckCount = options.deckCount || 1;
@@ -11,6 +12,12 @@ module.exports = class Deck {
 		this.makeCards(this.deckCount);
 	}
 
+	/**
+	 * Make a deck of cards
+	 *
+	 * @param {*} deckCount the number of decks to make
+	 * @returns {Array} an array of cards
+	 */
 	makeCards(deckCount) {
 		const newDeck = [];
 		for (let i = 0; i < deckCount; i++) {
@@ -28,6 +35,12 @@ module.exports = class Deck {
 		return this.deck;
 	}
 
+	/**
+	 * Draw a new card from the deck
+	 * 
+	 * @param {*} amount the amount of cards to draw
+	 * @returns {Array} an array of cards
+	 */
 	draw(amount = 1) {
 		const cards = [];
 		for (let i = 0; i < amount; i++) {
@@ -38,6 +51,10 @@ module.exports = class Deck {
 		return amount === 1 ? cards[0] : cards;
 	}
 
+	/**
+	 * Reset the deck
+	 * @returns {Array} an array of cards
+	 */
 	reset() {
 		this.makeCards(this.deckCount);
 		return this;

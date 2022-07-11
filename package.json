@@ -36,9 +36,11 @@
     "i18next": "^21.6.14",
     "libsodium-wrappers": "^0.7.10",
     "mathjs": "^10.5.0",
+    "moment": "^2.29.3",
     "node-fetch": "^2.6.7",
     "node-superfetch": "^0.2.3",
     "pino": "^7.9.2",
+    "sherlockjs": "^1.4.2",
     "winston": "^3.7.2"
   },
   "devDependencies": {
